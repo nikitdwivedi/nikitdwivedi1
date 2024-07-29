@@ -1,0 +1,76 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Approval {
+  createdAt DateTime            @default(now())
+  id        String              @id @default(cuid())
+  status    EnumApprovalStatus?
+  updatedAt DateTime            @updatedAt
+}
+
+model Form {
+  content   String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  title     String?
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  createdAt DateTime            @default(now())
+  id        String              @id @default(cuid())
+  typeField EnumEventTypeField?
+  updatedAt DateTime            @updatedAt
+}
+
+model Role {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  updatedAt DateTime @updatedAt
+}
+
+model Process {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  title     String?
+  updatedAt DateTime @updatedAt
+}
+
+model Workflow {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  title     String?
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime           @default(now())
+  email     String?            @unique
+  firstName String?
+  id        String             @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  typeField EnumUserTypeField?
+  updatedAt DateTime           @updatedAt
+  username  String             @unique
+}
+
+enum EnumApprovalStatus {
+  Option1
+}
+
+enum EnumEventTypeField {
+  Option1
+}
+
+enum EnumUserTypeField {
+  Option1
+}
